@@ -1,0 +1,9 @@
+{
+	"rules": {
+		"@typescript-eslint/camelcase": "off"
+	},
+	"extends": "../.eslintrc.json",
+	"env": {
+		"mocha": true
+	}
+}

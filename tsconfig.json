@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"alwaysStrict": true,
+		"baseUrl": "./src",
+		"charset": "utf-8",
+		"declaration": true,
+		"experimentalDecorators": true,
+		"module": "CommonJS",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "./dist",
+		"removeComments": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"target": "ES6"
+	},
+	"include": [
+		"**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}

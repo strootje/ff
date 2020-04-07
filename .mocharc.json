@@ -1,0 +1,16 @@
+{
+	"recursive": true,
+	"require": [
+		"ts-node/register"
+	],
+	"extensions": [
+		"ts"
+	],
+	"watch-files": [
+		"./src/**/*.ts",
+		"./test/**/*.ts"
+	],
+	"ignore-files": [
+		"./node_modules"
+	]
+}
