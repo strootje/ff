@@ -13,12 +13,13 @@
 		"noUnusedParameters": true,
 		"outDir": "./dist",
 		"removeComments": true,
+		"sourceMap": true,
 		"strict": true,
 		"strictNullChecks": true,
 		"target": "ES6"
 	},
 	"include": [
-		"**/*.ts"
+		"./src/**/*.ts"
 	],
 	"exclude": [
 		"node_modules"

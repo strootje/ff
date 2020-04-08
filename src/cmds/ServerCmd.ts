@@ -40,5 +40,5 @@ export function ParseServerArgs(args: Argv<{}>): Argv<ServerArgs> {
 		})
 		.option('exclude', {
 			type: 'string'
-		})
+		});
 }
