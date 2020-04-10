@@ -1,27 +1,40 @@
-import { bold } from 'chalk';
+import { bold, ChalkFunction } from 'chalk';
 import { max } from 'lodash';
 
-export function PrintAsTable<RowType extends {}, ColType extends keyof RowType>(rows: RowType[]): void {
+export function AsTable<RowType extends {}, ColType extends keyof RowType>(rows: RowType[]): string {
+	let table = '';
 	if (rows.length < 1) {
-		return;
+		return table;
 	}
 
 	const columns: ColType[] = Object.keys(rows[0]) as ColType[];
 	const lengths: { [key: string]: number } = columns.reduce((prev, cur) => ({ ...prev, [cur]: (max([`${cur}`.length, ...rows.map(row => `${row[cur]}`.length)]) || 0) }), {});
 
-	const join = (row?: RowType): string => columns.map(col => `${row ? row[col] : col}`.padEnd(lengths[`${col}`])).join('\t\t');
+	const join = (row?: RowType): string => columns.map(col => `${row ? row[col] : col}`.padEnd(lengths[`${col}`])).join('\t');
 
-	console.log(bold(join()));
+	table += bold(join()) + '\n';
 	for (const row of rows) {
-		console.log(join(row));
+		table += join(row) + '\n';
 	}
+
+	return table;
 }
 
-export function PrintAsKeyValue<RowType extends {}, ColType extends keyof RowType>(obj: RowType): void {
+export function AsKeyValue<RowType extends {}, ColType extends keyof RowType>(obj: RowType): string {
 	const keys: ColType[] = Object.keys(obj) as ColType[];
 
-	PrintAsTable(keys.map(p => ({
+	return AsTable(keys.map(p => ({
 		key: p,
 		value: obj[p]
 	})))
+}
+
+export interface HighlightWordOpts {
+	[word: string]: ChalkFunction;
+}
+
+export function Highlight(text: string, words: HighlightWordOpts): string {
+	return Object.keys(words).reduce((prev, word) => {
+		return prev.replace(new RegExp(word, 'gi'), p => words[word](p));
+	}, text);
 }

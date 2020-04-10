@@ -2,7 +2,7 @@ import { CommandModule } from 'yargs';
 import { RemotesNotFoundError } from '../domain/errors/RemotesNotFoundError';
 import { HandleCommandAsync } from '../infra/handlers/CommandHandlers';
 import { GetAllRemotesAsync } from '../infra/repositories/RemoteRepository';
-import { PrintAsTable } from '../infra/wrappers/ConsoleLogWrapper';
+import { AsTable } from '../infra/wrappers/ConsoleLogWrapper';
 
 export const RemotesCmd: CommandModule = {
 	command: 'remotes',
@@ -14,7 +14,7 @@ export const RemotesCmd: CommandModule = {
 			throw new RemotesNotFoundError();
 		}
 
-		PrintAsTable(remotes);
+		console.log(AsTable(remotes));
 	})
 };
 

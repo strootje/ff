@@ -12,6 +12,7 @@ dependencies:
   lodash: 4.17.15
   mkdirp: 1.0.4
   ora: 4.0.3
+  prompts: 2.3.2
   rimraf: 3.0.2
   semver: 7.2.1
   supports-color: 7.1.0
@@ -28,6 +29,7 @@ devDependencies:
   '@types/mkdirp': 1.0.0
   '@types/mocha': 7.0.2
   '@types/node': 13.11.0
+  '@types/prompts': 2.0.5
   '@types/rimraf': 3.0.0
   '@types/semver': 7.1.0
   '@types/yargs': 15.0.4
@@ -183,6 +185,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-uM4mnmsIIPK/yeO+42F2RQhGUIs39K2RFmugcJANppXe6J1nvH87PvzPZYpza7Xhhs8Yn9yIAVdLZ84z61+0xQ==
+  /@types/prompts/2.0.5:
+    dev: true
+    resolution:
+      integrity: sha512-07dV9H+uEmGjtudYst7UlRnctQfd/22zJ2/k1ykZR4Kx/n42hC314v1NCxvaesZebvJJ8i5AVMtBaMbSIR3oBw==
   /@types/qs/6.9.1:
     dev: true
     resolution:
@@ -1505,6 +1511,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
+  /kleur/3.0.3:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
   /lcid/2.0.0:
     dependencies:
       invert-kv: 2.0.0
@@ -1987,6 +1999,15 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
+  /prompts/2.3.2:
+    dependencies:
+      kleur: 3.0.3
+      sisteransi: 1.0.5
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-Q06uKs2CkNYVID0VqwfAl9mipo99zkBv/n2JtWY89Yxa3ZabWSrs0e2KTudKVa3peLUvYXMefDqIleLPVUBZMA==
   /proxy-addr/2.0.6:
     dependencies:
       forwarded: 0.1.2
@@ -2206,6 +2227,10 @@ packages:
   /signal-exit/3.0.3:
     resolution:
       integrity: sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+  /sisteransi/1.0.5:
+    dev: false
+    resolution:
+      integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
   /slice-ansi/2.1.0:
     dependencies:
       ansi-styles: 3.2.1
@@ -2695,6 +2720,7 @@ specifiers:
   '@types/mkdirp': ^1.0.0
   '@types/mocha': ^7.0.2
   '@types/node': ^13.11.0
+  '@types/prompts': ^2.0.5
   '@types/rimraf': ^3.0.0
   '@types/semver': ^7.1.0
   '@types/yargs': ^15.0.4
@@ -2719,6 +2745,7 @@ specifiers:
   mocha: ^7.1.1
   mocha-typescript: ^1.1.17
   ora: ^4.0.3
+  prompts: ^2.3.2
   rimraf: ^3.0.2
   semver: ^7.2.1
   supports-color: ^7.1.0

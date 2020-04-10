@@ -3,7 +3,8 @@ import { EventEmitter } from 'events';
 import { readFileSync } from 'fs';
 import { times } from 'lodash';
 import { resolve } from 'path';
-import { BottleJson } from '../../types/BottleJson';
+import { BottleInfoJson, BottleJson } from '../../types/BottleJson';
+import { ServerJson } from '../../types/ServerJson';
 import { CreateLogger } from './DebugChalkWrapper';
 const logger = CreateLogger('infra:wrappers:ChokidarWrapper');
 
@@ -93,12 +94,15 @@ export class BottleWatcher extends EventEmitter {
 
 	private UpdateIndex(): void {
 		logger('update %s', 'index.json');
+
+		const index: ServerJson = {
+			name: this.opts.name,
+			pages: this.RecalculatePages()
+		};
+
 		this.emit('update', {
 			filename: 'index.json',
-			json: {
-				name: this.opts.name,
-				pages: this.RecalculatePages()
-			}
+			json: index
 		});
 	}
 
@@ -112,7 +116,7 @@ export class BottleWatcher extends EventEmitter {
 				filename: page,
 				json: Object.keys(this.bottles).slice((i * this.opts.bottlesPerPage), ((i * this.opts.bottlesPerPage) + this.opts.bottlesPerPage))
 					.map(p => ({ filename: p, bottle: this.bottles[p] }))
-					.map(({ filename, bottle }) => ({
+					.map<BottleInfoJson>(({ filename, bottle }) => ({
 						name: bottle.name,
 						version: bottle.version,
 						tags: bottle.tags,

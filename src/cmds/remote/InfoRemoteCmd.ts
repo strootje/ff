@@ -1,7 +1,7 @@
 import { CommandModule } from 'yargs';
 import { HandleCommandAsync } from '../../infra/handlers/CommandHandlers';
 import { GetRemoteByNameAsync } from '../../infra/repositories/RemoteRepository';
-import { PrintAsKeyValue } from '../../infra/wrappers/ConsoleLogWrapper';
+import { AsKeyValue } from '../../infra/wrappers/ConsoleLogWrapper';
 import { ParseRemoteArgs, RemoteArgs } from '../RemoteCmd';
 
 export const InfoRemoteCmd: CommandModule<{}, RemoteArgs> = {
@@ -11,6 +11,6 @@ export const InfoRemoteCmd: CommandModule<{}, RemoteArgs> = {
 
 	handler: HandleCommandAsync('InfoRemoteCmd', async ({ args }) => {
 		const remote = await GetRemoteByNameAsync(args.name);
-		PrintAsKeyValue(remote);
+		console.log(AsKeyValue(remote));
 	})
 };

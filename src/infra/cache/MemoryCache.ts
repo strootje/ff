@@ -24,14 +24,10 @@ export function GetFromCache<T>(key: string, builder: CacheCallback<T>): T {
 	return store.data[key] as T;
 }
 
-export function GetJsonFromCache<T extends {}>(file: string, initial?: T): T {
+export function GetJsonFromCache<T extends {}>(file: string, initial: T): T {
 	return GetFromCache(`json:${file}`, () => {
 		if (!existsSync(file)) {
-			if (!!initial) {
-				return initial;
-			}
-
-			throw new Error('test');
+			return initial;
 		}
 
 		const raw = readFileSync(file, 'utf-8');
