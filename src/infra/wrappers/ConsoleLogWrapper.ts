@@ -1,5 +1,9 @@
-import { bold, ChalkFunction } from 'chalk';
+import { bold, ChalkFunction, gray } from 'chalk';
 import { max } from 'lodash';
+
+export function format(formatter: string, ...args: unknown[]): string {
+	return args.map(p => gray(p)).reduce((prev, cur) => prev.replace('%s', cur), formatter);
+}
 
 export function AsTable<RowType extends {}, ColType extends keyof RowType>(rows: RowType[]): string {
 	let table = '';

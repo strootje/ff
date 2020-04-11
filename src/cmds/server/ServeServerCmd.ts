@@ -1,7 +1,7 @@
 import * as Express from 'express';
 import { CommandModule } from 'yargs';
 import { HandleServerCommandAsync } from '../../infra/handlers/CommandHandlers';
-import { CreateSpinnerAsync } from '../../infra/wrappers/OraChalkWrapper';
+import { CreateEventSpinnerAsync } from '../../infra/wrappers/OraChalkWrapper';
 import { ParseServerArgs, ServerArgs } from '../ServerCmd';
 
 export interface ServeServerArgs extends ServerArgs {
@@ -26,16 +26,16 @@ export const ServeServerCmd: CommandModule<{}, ServeServerArgs> = {
 			default: 1415
 		}),
 
-	handler: HandleServerCommandAsync('ServeServerCmd', ({ args, watcher }) => CreateSpinnerAsync(update => new Promise((done, fatal) => {
+	handler: HandleServerCommandAsync('ServeServerCmd', ({ args, watcher }) => CreateEventSpinnerAsync(writeLine => new Promise((done, fatal) => {
 		const files: ListOfFiles = {};
 		const server = Express();
 
 		watcher.on('error', err => watcher.close().finally(() => fatal(err)));
 		watcher.on('ready', () => {
 			const listener = server.listen(args.port, args.host, () => {
-				update('-----');
-				update('serving %s from http://%s:%s/index.json', args.name, args.host, args.port);
-				update('-----');
+				writeLine('-----');
+				writeLine('serving %s from http://%s:%s/index.json', args.name, args.host, args.port);
+				writeLine('-----');
 			});
 
 			listener.on('close', () => done(watcher.close()));
@@ -43,10 +43,10 @@ export const ServeServerCmd: CommandModule<{}, ServeServerArgs> = {
 
 		watcher.on('update', ({ filename, json }) => {
 			if (!!files[filename]) {
-				update('detected %s for %s', 'update', filename);
+				writeLine('detected %s for %s', 'writeLine', filename);
 				files[filename] = json;
 			} else {
-				update('detected %s for %s', 'add', filename);
+				writeLine('detected %s for %s', 'add', filename);
 				files[filename] = json;
 
 				server.get(`/${filename}`, (_, res) => {
@@ -61,8 +61,8 @@ export const ServeServerCmd: CommandModule<{}, ServeServerArgs> = {
 		});
 
 		watcher.on('delete', ({ filename }) => {
+			writeLine('detected %s for %s', 'delete', filename);
 			delete files[filename];
-			update('detected %s for %s', 'delete', filename);
 		});
 	})))
 };

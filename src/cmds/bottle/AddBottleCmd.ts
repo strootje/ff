@@ -3,6 +3,7 @@ import { BottleNotFoundError } from '../../domain/errors/BottleNotFoundError';
 import { HandleCommandAsync } from '../../infra/handlers/CommandHandlers';
 import { FindBottlesByQuery } from '../../infra/repositories/BottleRepository';
 import { AsKeyValue } from '../../infra/wrappers/ConsoleLogWrapper';
+import { CreateSpinnerAsync } from '../../infra/wrappers/OraChalkWrapper';
 import { AskToReduceAsync } from '../../infra/wrappers/PromptsWrapper';
 import { BottleArgs, ParseBottleArgs, ParseQuery } from '../BottleCmd';
 
@@ -21,5 +22,12 @@ export const AddBottleCmd: CommandModule<{}, BottleArgs> = {
 		}
 
 		console.log(AsKeyValue(bottle));
+
+		const steps = await CreateSpinnerAsync(bottle.GetStepsAsync(), 'getting steps');
+		for (let i = 0; i < steps.length; i++) {
+			const step = steps[i];
+
+			await CreateSpinnerAsync(step.RunAsync(), '(%s/%s) Running %s', (i + 1), steps.length, step.Title);
+		}
 	})
 };
