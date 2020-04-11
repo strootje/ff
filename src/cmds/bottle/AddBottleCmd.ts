@@ -7,6 +7,16 @@ import { CreateSpinnerAsync } from '../../infra/wrappers/OraChalkWrapper';
 import { AskToReduceAsync } from '../../infra/wrappers/PromptsWrapper';
 import { BottleArgs, ParseBottleArgs, ParseQuery } from '../BottleCmd';
 
+interface Callback  {
+	(writeLine: (formatter: string, ...args: unknown[]) => void): Promise<void>;
+}
+
+function StreamToFileAsync(callback: Callback): Promise<void> {
+	return callback(() => {
+		console.log('');
+	});
+}
+
 export const AddBottleCmd: CommandModule<{}, BottleArgs> = {
 	command: 'add <query>',
 
